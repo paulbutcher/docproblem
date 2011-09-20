@@ -5,7 +5,9 @@ object DocProblem extends Build {
 
   override lazy val settings = super.settings ++ Seq(crossScalaVersions := Seq("2.8.1", "2.9.1"))
   
-  lazy val core = Project("Core", file("core"), aggregate = Seq(supplement))
+  lazy val root = Project("Root", file(".")) aggregate(core, supplement)
+  
+  lazy val core = Project("Core", file("core"))
 
-  lazy val supplement: Project = Project("Supplement", file("supplement")) dependsOn(core)
+  lazy val supplement = Project("Supplement", file("supplement")) dependsOn(core)
 }
